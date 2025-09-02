@@ -1,3 +1,2 @@
 # aula-git
-aula git e github para engenharia de software
-lucas deu commit
+Aula de git e github ministrada para turma de Graduação e Pós-graduação de Engenharia de Software da Escola Politécnica de Pernambuco (POLI-UPE)
