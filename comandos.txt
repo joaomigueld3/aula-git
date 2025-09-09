@@ -1,0 +1,77 @@
+
+1.  Mostrar uma situação de conflito
+
+2.  Gitflow {
+    main: prod
+    develop: dev
+    feature/*: novas funcionalidades. Saem de develop e voltam para develop (PR)
+    release/*: Prep nova versão. Sai de develop, recebe apenas correções finais, e quando está pronta, é "mergada" na main
+    hotfix/*: Para correções críticas em produção. Sai de main, é corrigida, e volta para main e develop
+}
+
+3.  A Máquina do Tempo (com riscos): git reset --hard
+    ALERTA: Este comando descarta permanentemente todas as alterações não commitadas e move o estado do seu projeto para um commit específico. Use com extremo cuidado!
+{
+# 1. Crie um commit "ruim" para podermos voltar atrás
+$ echo "ERRO" > erro.txt
+$ git add .
+$ git commit -m "fix: Adiciona algo que quebrou tudo"
+
+# 2. Use o reflog ou o log para encontrar o ID do commit ANTERIOR ao erro
+$ git reflog
+# anote-o-id-do-commit-bom
+
+# 3. Volte no tempo. O arquivo erro.txt e o commit ruim desaparecerão.
+$ git reset --hard <id-do-commit-bom>
+}
+
+4.  O Bisturi Cirúrgico: git cherry-pick
+    Cenário: Você fez um commit com uma correção importante em uma branch de feature, mas precisa aplicar SOMENTE essa correção na main agora, sem trazer a funcionalidade inteira.
+{
+    # 1. Volte para a branch da feature e faça um commit importante
+$ git checkout feature/pagina-contato
+$ echo "Telefone: (99) 99999-9999" >> contato.html
+$ git add .
+$ git commit -m "hotfix: Adiciona telefone de contato urgente"
+
+# 2. Anote o ID deste commit
+$ git log -1 # O -1 mostra apenas o último commit
+
+# 3. Volte para a main e aplique APENAS aquele commit
+$ git checkout main
+$ git cherry-pick <id-do-commit-do-hotfix>
+
+# Agora a main tem a informação do telefone, mas não tem outras coisas da branch 'feature/pagina-contato'.
+}
+
+
+git merge [branch]: mescla o histórico do branch especificado com o atual
+
+para pequenas mudanças no mesmo commit {
+git add .
+git commit --amend --no-edit
+}
+
+mostra tudo feito no commit {
+git show {id-commit}
+}
+
+mostra diferenças {
+git diff 
+--staged: comparação do que foi stageado, mas ainda não foi submetido
+}
+
+puxar um commit especifico de outra branch {
+git cherry-pick
+}
+
+mostra todo historico{
+git reflog
+}
+
+volta o commit {
+git reset --hard {id-commit} (cuidado com o hard)
+
+git reset [arquivo]: remove o stage de um arquivo, mantendo as alterações no diretório de trabalho
+}
+
