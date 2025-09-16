@@ -1,0 +1,19 @@
+{
+  "name": "aula-git",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Aula de git e github ministrada para turma de Graduação e Pós-graduação de Engenharia de Software da Escola Politécnica de Pernambuco (POLI-UPE)",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10",
+    "pg": "^8.16.3"
+  }
+}

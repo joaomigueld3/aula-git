@@ -1,0 +1,27 @@
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      # Essas variáveis podem ser usadas no seu app Node.js
+      # para se conectar ao banco, se preferir
+      - DATABASE_URL=postgres://postgres:minha_senha_secreta@db:5432/minha_db
+
+  db:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_DB: minha_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: minha_senha_secreta
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
