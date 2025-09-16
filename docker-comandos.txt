@@ -1,0 +1,84 @@
+======================================
+  Cheatsheet: Top 10 Comandos Docker
+======================================
+
+---
+1. docker build
+---
+Descrição: Constrói uma imagem Docker a partir de um Dockerfile.
+Uso: docker build -t <nome_da_imagem>:<tag> .
+Exemplo: docker build -t minha-app-node:1.0 .
+(O ponto "." no final indica que o Dockerfile está no diretório atual).
+
+
+---
+2. docker images
+---
+Descrição: Lista todas as imagens Docker que estão localmente na sua máquina.
+Uso: docker images
+
+
+---
+3. docker run
+---
+Descrição: Cria e inicia um novo container a partir de uma imagem.
+Uso: docker run [OPÇÕES] <nome_da_imagem>
+Exemplo (interativo): docker run -it ubuntu bash
+Exemplo (em background com porta mapeada): docker run -d -p 8080:80 nginx
+
+
+---
+4. docker ps
+---
+Descrição: Lista todos os containers que estão em execução.
+Uso: docker ps
+Dica: Use `docker ps -a` para listar TODOS os containers (em execução ou parados).
+
+
+---
+5. docker stop
+---
+Descrição: Para a execução de um ou mais containers.
+Uso: docker stop <ID_do_container_ou_nome>
+Exemplo: docker stop f4a1bb3a3a9a
+
+
+---
+6. docker start
+---
+Descrição: Inicia um ou mais containers que foram parados.
+Uso: docker start <ID_do_container_ou_nome>
+Exemplo: docker start meu-container-nginx
+
+
+---
+7. docker rm
+---
+Descrição: Remove um ou mais containers. O container precisa estar parado primeiro.
+Uso: docker rm <ID_do_container_ou_nome>
+Dica: Use `docker rm $(docker ps -aq)` para remover todos os containers parados.
+
+
+---
+8. docker rmi
+---
+Descrição: Remove uma ou mais imagens.
+Uso: docker rmi <nome_da_imagem_ou_ID>
+Dica: Você precisa remover todos os containers baseados na imagem antes de conseguir removê-la.
+
+
+---
+9. docker logs
+---
+Descrição: Exibe os logs (saídas de texto) de um container. Muito útil para debug.
+Uso: docker logs <ID_do_container_ou_nome>
+Exemplo (para ver logs em tempo real): docker logs -f meu-container-app
+
+
+---
+10. docker-compose up / down
+---
+Descrição: Inicia e para ambientes com múltiplos containers definidos em um arquivo `docker-compose.yml`.
+Uso (para iniciar): docker-compose up
+Dica: `docker-compose up -d` para iniciar em modo "detached" (background).
+Uso (para parar e remover): docker-compose down

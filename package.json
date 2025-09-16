@@ -5,7 +5,7 @@
   "description": "Aula de git e github ministrada para turma de Graduação e Pós-graduação de Engenharia de Software da Escola Politécnica de Pernambuco (POLI-UPE)",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
