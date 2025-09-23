@@ -1,25 +1,29 @@
+version: '3.8'
 
 services:
   app:
     build: .
     ports:
-      - "3000:3000"
+      # Mapeia a porta da máquina para a variável dentro do container
+      - "${APP_PORT}:${APP_PORT}"
+    # Carrega as variáveis do arquivo .env para dentro deste serviço
+    env_file:
+      - .env
     depends_on:
       - db
-    environment:
-      # Essas variáveis podem ser usadas no seu app Node.js
-      # para se conectar ao banco, se preferir
-      - DATABASE_URL=postgres://postgres:minha_senha_secreta@db:5432/minha_db
 
   db:
     image: postgres:14
     restart: always
+    # O container do Postgres espera variáveis com nomes específicos.
+    # Aqui, nós lemos as variáveis do nosso .env e as atribuímos
+    # aos nomes que o Postgres espera (ex: POSTGRES_USER).
     environment:
-      POSTGRES_DB: minha_db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: minha_senha_secreta
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "5432:5432"
+      - "${DB_PORT}:${DB_PORT}"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
