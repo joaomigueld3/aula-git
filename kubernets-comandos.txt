@@ -1,0 +1,21 @@
+docker build -t minha-app-node:v1 .
+docker run -p 4000:3000 -d minha-app-node:v1
+
+minikube start -- Iniciar o cluster local
+eval $(minikube -p minikube docker-env) -- no bash Configurar o Docker local para usar o do Minikube
+
+manifestos no cluster:
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+
+kubectl get pods         # Mostra os 2 Pods sendo criados/rodando
+kubectl get deployment   # Mostra o status do deployment
+kubectl get service      # Mostra o serviço e a porta externa
+
+minikube service minha-app-service --url
+
+kubectl delete deployment minha-app-deployment
+kubectl delete service minha-app-service
+
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml

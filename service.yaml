@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: minha-app-service
+spec:
+  type: NodePort # Expõe o serviço em uma porta estática em cada Nó.
+  selector:
+    app: minha-app-node # Encontra os Pods que têm essa label
+  ports:
+    - protocol: TCP
+      port: 80 # Porta DENTRO do cluster para o serviço
+      targetPort: 3000 # Porta que o contêiner está escutando

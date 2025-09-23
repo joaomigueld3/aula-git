@@ -1,6 +1,7 @@
 import dotenv from'dotenv';
 import express from 'express';
-import {Pool} from 'pg'
+import {Pool} from 'pg';
+import os from 'os';
 
 dotenv.config({path: '.env'})
 
@@ -17,23 +18,13 @@ const port = process.env.APP_PORT || 3000;
   port: parseInt(process.env.DB_PORT || '5432'), // Converte a porta para número
 }); */
 
-// para funcionar no render
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  // A linha abaixo é crucial para conexões em produção em serviços como o Render
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
-
-app.get('/', async (req, res) => {
-  try {
-    const result = await pool.query('SELECT NOW()');
-    res.send(`<h1>Conexão com o Banco de Dados bem-sucedida2!</h1><p>Hora atual do banco: ${result.rows[0].now}</p>`);
-  } catch (err) {
-    console.error('Erro de conexão:', err.stack);
-    res.status(500).send('<h1>Erro ao conectar ao banco de dados</h1>');
-  }
+app.get('/', (req, res) => {
+  console.log(`[${new Date().toISOString()}] Nova requisição recebida!`);
+  res.json({
+    message: "Olá, mundo! Esta é minha primeira app no Kubernetes!",
+    version: "1.0.0",
+    hostname: os.hostname() // Mostra o nome do Pod, que é útil para ver o balanceamento de carga
+  });
 });
 
 app.listen(port, () => {
