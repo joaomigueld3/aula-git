@@ -9,12 +9,21 @@ const app = express();
 const port = process.env.APP_PORT || 3000;
 
 // Configura o pool de conexão usando as variáveis de ambiente
-const pool = new Pool({
+/* const pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
   database: process.env.DB_DATABASE,
   password: process.env.DB_PASSWORD,
   port: parseInt(process.env.DB_PORT || '5432'), // Converte a porta para número
+}); */
+
+// para funcionar no render
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  // A linha abaixo é crucial para conexões em produção em serviços como o Render
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 app.get('/', async (req, res) => {
